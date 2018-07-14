@@ -1,0 +1,6 @@
+[package]
+name = "pairwise_product"
+version = "0.1.0"
+authors = ["henry <dev@hwr.io>"]
+
+[dependencies]
