@@ -1,7 +1,18 @@
 fn main() {
-    let (one, two) = read_input();
-    let count = parse_line_one(one);
-    let mut vector = parse_line_two(two);
+    let mut vector: Vec<i64> = Vec::new();
+
+    let input = read_input();
+    let mut items = input.split_whitespace().peekable();
+    if items.peek().is_none() {
+        std::process::exit(0);
+    }
+
+    for item in items {
+        let int: i64 = item.parse().unwrap();
+
+        vector.push(int);
+    }
+
     vector.sort();
 
     let mut most_biggest = 0;
@@ -27,8 +38,8 @@ fn main() {
         }
     }
 
-    let product: i64 = (most_biggest * second_biggest);
-    println!("{}", product)
+    println!("{}", (most_biggest * second_biggest));
+    std::process::exit(0);
 }
 
 
@@ -41,31 +52,8 @@ fn in_bounds(int: i64) -> bool
 }
 
 
-fn read_input() -> (String, String) {
-    let mut one = String::new();
-    std::io::stdin().read_line(&mut one);
-
-    let mut two = String::new();
-    std::io::stdin().read_line(&mut two);
-
-    return (one.replace("\n", ""),
-            two.replace("\n", ""));
-}
-
-
-fn parse_line_one(input: String) -> i64 {
-    let output: i64 = input.parse().unwrap();
-    return output;
-}
-
-
-fn parse_line_two(input: String) -> Vec<i64> {
-    let mut int_array_output: Vec<i64> = Vec::new();
-
-    for string in input.split(" ") {
-        let int: i64 = string.parse().unwrap();
-        int_array_output.push(int);
-    }
-
-    return int_array_output;
+fn read_input() -> String {
+    let mut stdin = String::new();
+    std::io::stdin().read_line(&mut stdin);
+    return stdin.replace("\n", "");
 }
