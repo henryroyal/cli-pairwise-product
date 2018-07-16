@@ -9,46 +9,35 @@ fn main() {
 
     for item in items {
         let int: i64 = item.parse().unwrap();
-
         vector.push(int);
     }
 
     vector.sort();
-
-    let mut most_biggest = 0;
-    loop {
-        if vector.is_empty() {
-            break;
-        }
-
-        most_biggest = vector.pop().unwrap();
-        if in_bounds(most_biggest) {
-            break;
-        }
-    }
-
-    let mut second_biggest = 0;
-    loop {
-        if vector.is_empty() {
-            break;
-        }
-        second_biggest = vector.pop().unwrap();
-        if in_bounds(second_biggest) {
-            break;
-        }
-    }
+    let most_biggest = get_largest_acceptable(&mut vector);
+    let second_biggest = get_largest_acceptable(&mut vector);
 
     println!("{}", (most_biggest * second_biggest));
     std::process::exit(0);
 }
 
-
-fn in_bounds(int: i64) -> bool
+fn get_largest_acceptable(vector: &mut Vec<i64>) -> i64
 {
-    let mut inbounds = true;
-    if int <= 0 { inbounds = false; }
-    if int >= 200000 { inbounds = false; }
-    return inbounds;
+    let mut value = 0;
+    loop {
+        if vector.is_empty() {
+            return value;
+        }
+
+        let next = vector.pop();
+        if next.is_none() {
+            return 0;
+        }
+
+        value = next.unwrap();
+        if value <= 0 { continue; }
+        if value >= 200000 { continue; }
+        return value;
+    }
 }
 
 
