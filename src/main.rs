@@ -20,12 +20,11 @@ fn main() {
     std::process::exit(0);
 }
 
-fn get_largest_acceptable(vector: &mut Vec<i64>) -> i64
-{
+fn get_largest_acceptable(vector: &mut Vec<i64>) -> i64 {
     let mut value = 0;
     loop {
         if vector.is_empty() {
-            return value;
+            return 0;
         }
 
         let next = vector.pop();
